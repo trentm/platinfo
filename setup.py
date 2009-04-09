@@ -23,7 +23,7 @@ A simple usage example:
 >>> pi.os
 'macosx'
 >>> pi.arch
-'macosx'
+'x86'
 >>> pi.name()
 'macosx-x86'
 
