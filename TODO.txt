@@ -1,5 +1,8 @@
 # other 
 
+- test case for basically working in numerous Python versions
+- sorted() for as_yaml and as_xml? Only if doesn't break supported Py
+  versions
 - tl.activestate.com: is bsd, says it is redhat linux (bsd-compat libs can
   cause confusion for platinfo)
 - s/libcpp/libstdc++/ or to "libstdcpp" if feasible

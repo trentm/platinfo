@@ -65,28 +65,31 @@ class pypi_upload(Task):
         import webbrowser
         webbrowser.open_new(url)
 
-#TODO: update from go
 class googlecode_upload(Task):
     """Update sdist to Google Code project site."""
     deps = ["sdist"]
     def make(self):
+        helper_in_cwd = exists(join(self.dir, "googlecode_upload.py"))
+        if helper_in_cwd:
+            sys.path.insert(0, self.dir)
         try:
             import googlecode_upload
         except ImportError:
             raise MkError("couldn't import `googlecode_upload` (get it from http://support.googlecode.com/svn/trunk/scripts/googlecode_upload.py)")
+        if helper_in_cwd:
+            del sys.path[0]
         sys.path.insert(0, join(self.dir, "lib"))
         import platinfo
 
         sdist_path = join(self.dir, "dist",
-            "platinfo-%s.tar.gz" % platinfo.__version__)
+            "platinfo-%s.zip" % platinfo.__version__)
         status, reason, url = googlecode_upload.upload_find_auth(
             sdist_path,
             "platinfo", # project_name
             "platinfo %s source package" % platinfo.__version__, # summary
-            #TODO: appropriate labels, e.g. "featured"
-            None) # labels
+            ["Featured", "Type-Archive"]) # labels
         if not url:
-            raise MkError("couldn't upload sdsit to Google Code: %s (%s)"
+            raise MkError("couldn't upload sdist to Google Code: %s (%s)"
                           % (reason, status))
         self.log.info("uploaded sdist to `%s'", url)
 
