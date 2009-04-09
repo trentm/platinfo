@@ -70,11 +70,11 @@
 """
 # Development notes:
 # - The name of this module is intentionally not "platform" to not
-#   conflict with (Marc-Andre Lemburg's?) platform.py in the wild.
+#   conflict with (Marc-Andre Lemburg's?) platform.py in the stdlib.
 # - YAGNI: Having a "quick/terse" mode. Will always gather all possible
 #   information unless come up with a case to NOT do so.
 
-__version_info__ = (0, 13, 0)
+__version_info__ = (0, 14, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 import os
@@ -296,7 +296,10 @@ class PlatInfo(object):
 
     def as_dict(self):
         """Return a dict representation of the platform info."""
-        return self.__dict__.copy()
+        d = self.__dict__.copy()
+        assert "name" not in d, "conflict with `name` datum"
+        d["name"] = self.name()
+        return d
 
     def as_xml(self):
         from xml.sax.saxutils import escape
