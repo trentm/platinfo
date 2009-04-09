@@ -1,10 +1,5 @@
-# top
-
-- setup
-- put in google code
-- put on pypi
-
 # other 
+
 - tl.activestate.com: is bsd, says it is redhat linux (bsd-compat libs can
   cause confusion for platinfo)
 - s/libcpp/libstdc++/ or to "libstdcpp" if feasible

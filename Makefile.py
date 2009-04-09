@@ -11,10 +11,11 @@ import os
 from os.path import join, dirname, normpath, abspath, exists, basename
 import re
 import webbrowser
+from glob import glob
 
 from mklib.common import MkError
 from mklib import Task
-from mklib.sh import run_in_dir
+from mklib import sh
 
 
 
@@ -28,20 +29,36 @@ class site(Task):
     def make(self):
         webbrowser.open("http://code.google.com/p/platinfo/")
 
+class clean(Task):
+    """Clean generated files and dirs."""
+    def make(self):
+        patterns = [
+            "dist",
+            "MANIFEST",
+            "*.pyc",
+            "lib/*.pyc",
+        ]
+        for pattern in patterns:
+            p = join(self.dir, pattern)
+            for path in glob(p):
+                sh.rm(path, log=self.log)
+
 class sdist(Task):
     """python setup.py sdist"""
     def make(self):
-        run_in_dir("%spython setup.py sdist" % _setup_command_prefix(),
-                   self.dir, self.log.debug)
+        sh.run_in_dir(
+            "%spython setup.py sdist -f --formats zip" % _setup_command_prefix(),
+            self.dir, self.log.debug)
 
 class pypi_upload(Task):
     """Update release to pypi."""
     def make(self):
-        tasks = (sys.platform == "win32"
-                 and "sdist bdist_wininst upload"
-                 or "sdist upload")
-        run_in_dir("%spython setup.py %s" % (_setup_command_prefix(), tasks),
-                   self.dir, self.log.debug)
+        #tasks = (sys.platform == "win32"
+        #    and "sdist --formats zip bdist_wininst upload"
+        #    or "sdist --formats zip upload")
+        tasks = "sdist --formats zip upload"
+        sh.run_in_dir("%spython setup.py %s" % (_setup_command_prefix(), tasks),
+            self.dir, self.log.debug)
 
         sys.path.insert(0, join(self.dir, "lib"))
         url = "http://pypi.python.org/pypi/platinfo/"
