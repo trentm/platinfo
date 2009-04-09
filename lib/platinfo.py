@@ -21,6 +21,7 @@
          'distro_ver': '9.0',
          'libcpp': 'libcpp5',
          'lsb_version': '1.3',
+         'name': 'linux-x86',
          'os': 'linux',
          'os_ver': '2.4.21'}
 
@@ -74,7 +75,7 @@
 # - YAGNI: Having a "quick/terse" mode. Will always gather all possible
 #   information unless come up with a case to NOT do so.
 
-__version_info__ = (0, 14, 0)
+__version_info__ = (0, 14, 1)
 __version__ = '.'.join(map(str, __version_info__))
 
 import os
@@ -101,7 +102,10 @@ class InternalError(Error):
         return Error.__str__(self) + """
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Please send an email to <trentm@gmail.com> to report this error.    *
+* Please report this error by adding a bug here:                      *
+*     http://code.google.com/p/platinfo/issues/list                   *
+* or, by sending an email to <trentm@gmail.com>.                      *
+*                                                                     *
 * I'd like to keep improving `platinfo.py' to cover as many platforms *
 * as possible. Please be sure to include the error message above and  *
 * any addition information you think might be relevant. Thanks!       *
