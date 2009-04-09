@@ -1,7 +1,6 @@
 
 - is the addition of 'name' to the as_dict() output a problem for APy's
   usage in apyconfig.py?
-- test case for basically working in numerous Python versions
 - sorted() for as_yaml and as_xml? Only if doesn't break supported Py
   versions
 - tl.activestate.com: is bsd, says it is redhat linux (bsd-compat libs can
