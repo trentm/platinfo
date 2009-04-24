@@ -101,8 +101,8 @@ class test(Task):
     """Run all tests (except known failures)."""
     def make(self):
         for ver, python in self._gen_pythons():
-            if ver < (2,3):
-                # Don't support Python < 2.3.
+            if ver < (2,4):
+                # Don't support Python <= 2.3.
                 continue
             elif ver >= (3,0):
                 # Don't (yet) support Python 3.
