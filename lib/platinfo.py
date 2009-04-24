@@ -75,7 +75,7 @@
 # - YAGNI: Having a "quick/terse" mode. Will always gather all possible
 #   information unless come up with a case to NOT do so.
 
-__version_info__ = (0, 14, 1)
+__version_info__ = (0, 14, 2)
 __version__ = '.'.join(map(str, __version_info__))
 
 import os
@@ -332,7 +332,7 @@ class PlatInfo(object):
             self.os = "win32"
             self.arch = "x86"
         elif PROCESSOR_ARCHITECTURE == "AMD64":
-            self.os = "win32"
+            self.os = "win64"
             self.arch = "x64"
         else:
             raise InternalError("unknown Windows PROCESSOR_ARCHITECTURE: %r"
