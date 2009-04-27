@@ -65,7 +65,7 @@
     - not ugly (e.g. "MSWin32" is ugly)
 
     Generally some of these names match those used for ActiveTcl and
-    ActivePerl where that makes sense (for example, "win32" is used
+    ActivePerl where that makes sense (for example, "windows" is used
     instead of Perl's burdensome "MSWin32"). See the particular method
     docstrings for more details.
 """
@@ -75,7 +75,7 @@
 # - YAGNI: Having a "quick/terse" mode. Will always gather all possible
 #   information unless come up with a case to NOT do so.
 
-__version_info__ = (0, 14, 3)
+__version_info__ = (1, 0, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 import os
@@ -122,8 +122,9 @@ warnings.simplefilter("once", LinuxDistroVersionWarning)
 
 class PlatInfo(object):
     """Platform information for the current machine."""
+    #TODO: allow incoming 'win32' and 'win64'?
     _known_oses = set(
-        "win32 win64 hpux linux macosx aix solaris freebsd".split())
+        "windows hpux linux macosx aix solaris freebsd".split())
     _known_archs = set(
         "x86 powerpc ppc x64 x86_64 ia64 sparc sparc64 parisc".split())
 
@@ -133,7 +134,7 @@ class PlatInfo(object):
 
         This only knows how to deal with "os[os_ver]-arch[arch_ver]".
         For example:
-            GOOD: win32-x86, hpux-parisc2.0, aix5-powerpc
+            GOOD: windows-x86, hpux-parisc2.0, aix5-powerpc
             BAD:  linux-libcpp5-x86
         """
         parts = name.split('-')
@@ -170,14 +171,14 @@ class PlatInfo(object):
         platform will be determine. If called with arguments, the PlatInfo
         will just use those as all platform info. E.g.,
 
-            >>> p = PlatInfo(os='win32', arch='x86')
+            >>> p = PlatInfo(os='windows', arch='x86')
             >>> p.name()
-            'win32-x86'
+            'windows-x86'
         """
         if kwargs:
             self.__dict__ = kwargs
         elif sys.platform == "win32":
-            self._init_win32()
+            self._init_windows()
         elif sys.platform.startswith("linux"):
             self._init_linux()
         elif sys.platform.startswith("sunos"):
@@ -321,18 +322,16 @@ class PlatInfo(object):
         s += '\n'.join(parts)
         return s
 
-    def _init_win32(self):
+    def _init_windows(self):
         #XXX Right answer here is GetSystemInfo().
         #XXX Does this work on all Windows flavours?
+        self.os = "windows"
         PROCESSOR_ARCHITECTURE = os.environ.get("PROCESSOR_ARCHITECTURE")
         if PROCESSOR_ARCHITECTURE == "IA64":
-            self.os = "win64"
             self.arch = "ia64"
         elif PROCESSOR_ARCHITECTURE == "x86":
-            self.os = "win32"
             self.arch = "x86"
         elif PROCESSOR_ARCHITECTURE == "AMD64":
-            self.os = "win64"
             self.arch = "x64"
         else:
             raise InternalError("unknown Windows PROCESSOR_ARCHITECTURE: %r"
