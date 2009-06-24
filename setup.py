@@ -28,7 +28,7 @@ if sys.version_info < (2, 3):
             del kwargs["classifiers"]
         _setup(**kwargs)
 
-doclines = open(os.path.join(os.path.dirname(__file__, "README.txt"))).read().split("\n")
+doclines = open(os.path.join(os.path.dirname(__file__), "README.txt")).read().split("\n")
 script = (sys.platform == "win32" and "lib\\platinfo.py" or "bin/platinfo")
 
 setup(
