@@ -37,6 +37,8 @@ class clean(Task):
             "MANIFEST",
             "*.pyc",
             "lib/*.pyc",
+            "*.orig",
+            "lib/*.orig",
         ]
         for pattern in patterns:
             p = join(self.dir, pattern)
