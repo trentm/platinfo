@@ -83,6 +83,8 @@ import sys
 import re
 import tempfile
 import logging
+import errno
+import subprocess
 from pprint import pprint
 from os.path import exists
 import warnings
@@ -736,6 +738,46 @@ def platname(*rules, **kwargs):
 
 #---- internal support stuff
 
+# Note: Not using `subprocess.CalledProcessError` because that isn't in
+# Python 2.4.
+class RunError(Exception): pass
+class ExecutableNotFoundError(RunError): pass
+class NonZeroReturnCodeError(RunError): pass
+
+def _run(args, ignore_stderr=False):
+    """Run the given command.
+
+    @param args {str|list} Command strong or sequence of program arguments. The
+          program to execute is normally the first item in the args
+          sequence or the string if a string is given.
+    @param ignore_stderr {bool} If True, return only stdout; otherwise
+        return both stdout and stderr combined (2>&1)
+    @returns {str} The program output.
+    @raises {RunError} `ExecutableNotFoundError` or `NonZeroReturnCodeError`.
+    """
+    if ignore_stderr:
+        stderr_pipe = subprocess.PIPE
+    else:
+        stderr_pipe = subprocess.STDOUT
+        
+    try:
+        p = subprocess.Popen(args=args, 
+                shell=False, # prevent obtrusive shell warnings
+                stdout=subprocess.PIPE, stderr=stderr_pipe)
+    except OSError, e:
+        if e.errno == errno.ENOENT:
+            # `exe` not found
+            raise ExecutableNotFoundError('The command "%s" cannot be run: %s'
+                % (args, e))
+        raise
+
+    stdout, stderr = p.communicate()
+    if p.returncode:
+        raise NonZeroReturnCodeError('"%s" returned non-zero return code (%d)' 
+            % (args, p.returncode))
+    return stdout
+
+
 # Recipe: ver (0.1) in C:\trentm\tm\recipes\cookbook
 def _split_ver(ver_str):
     """Parse the given version into a tuple of "significant" parts.
@@ -807,9 +849,10 @@ int main(int argc, char **argv) { exit(0); }
         currdir = os.getcwd()
         os.chdir(tmpdir)
         try:
-            retval = os.system('g++ '+cxxfile)
-            if retval:
-                log.warn("could not compile test C++ file with g++: %r", retval)
+            try:
+                _run(['g++', cxxfile], ignore_stderr=True)
+            except RunError, e:
+                log.debug("could not compile test C++ file with g++: %s", e)
                 return {}
             objdump = os.popen('objdump -p a.out').read()
         finally:
