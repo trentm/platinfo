@@ -7,7 +7,7 @@ from distutils.core import setup
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "lib"))
 try:
-    import platinfo
+    import platinfo2
 finally:
     del sys.path[0]
 
@@ -29,17 +29,17 @@ if sys.version_info < (2, 3):
         _setup(**kwargs)
 
 doclines = open(os.path.join(os.path.dirname(__file__), "README.txt")).read().split("\n")
-script = (sys.platform == "win32" and "lib\\platinfo.py" or "bin/platinfo")
+script = (sys.platform == "win32" and "lib\\platinfo2.py" or "bin/platinfo2")
 
 setup(
-    name="platinfo",
-    version=platinfo.__version__,
+    name="platinfo2",
+    version=platinfo2.__version__,
     maintainer="Trent Mick",
     maintainer_email="trentm@gmail.com",
     url="http://code.google.com/p/platinfo/",
     license="http://www.opensource.org/licenses/mit-license.php",
     platforms=["any"],
-    py_modules=["platinfo"],
+    py_modules=["platinfo2"],
     package_dir={"": "lib"},
     scripts=[script],
     description=doclines[0],

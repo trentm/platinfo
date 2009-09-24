@@ -1,6 +1,11 @@
 platinfo: A small library from getting information on the current platform
 --------------------------------------------------------------------------
 
+* * *
+WARNING: This is platinfo 2.x (installs as 'platinfo2') . This branch is
+currently unstable. Use platinfo 0.x for something more stable for now.
+* * *
+
 This module determines and returns standardized names for
 platforms, where the "standard" is Trent Mick's reasoning :)
 from experience building ActivePython on a fairly large number of
@@ -18,7 +23,7 @@ The driving goal is to provide platform names that are:
 
 A simple usage example::
 
-    >>> from platinfo import PlatInfo
+    >>> from platinfo2 import PlatInfo
     >>> pi = PlatInfo()
     >>> pi.os
     'macosx'
