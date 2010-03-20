@@ -103,16 +103,20 @@ class InternalError(Error):
     def __str__(self):
         return Error.__str__(self) + """
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Please report this error by adding a bug here:                        *
-*     http://code.google.com/p/platinfo/issues/list                     *
-* or, by sending an email to <trentm@gmail.com>.                        *
-*                                                                       *
-* I'd like to keep improving `platinfo2.py' to cover as many platforms  *
-* as possible. Please be sure to include the error message above and    *
-* any addition information you think might be relevant. Thanks!         *
-* -- Trent                                                              *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* Please report this error by adding a bug here:
+*     http://code.google.com/p/platinfo/issues/list
+* or, by sending an email to <trentm@gmail.com>.
+*
+* I'd like to keep improving `platinfo2.py' to cover as many platforms
+* as possible. Please be sure to include the error message above and
+* any addition information you think might be relevant. Thanks!
+* -- Trent
+*
+* platinfo version: %s
+* python version: %s
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""" % (
+    __version_info__, sys.version_info)
 
 class LinuxDistroVersionWarning(RuntimeWarning):
     pass
