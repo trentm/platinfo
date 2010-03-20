@@ -130,7 +130,7 @@ class PlatInfo(object):
     """Platform information for the current machine."""
     #TODO: allow incoming 'win32' and 'win64'?
     _known_oses = set(
-        "windows hpux linux macosx aix solaris freebsd".split())
+        "windows hpux linux macosx aix solaris freebsd openbsd".split())
     _known_archs = set(
         "x86 powerpc ppc x64 x86_64 ia64 sparc sparc64 parisc".split())
 
@@ -379,6 +379,8 @@ class PlatInfo(object):
         arch = uname[-1]
         if re.match(r"i\d86", arch):
             self.arch = "x86"
+        elif arch == "amd64":
+            self.arch = "x86_64"
         else:
             raise InternalError("unknown OpenBSD architecture: '%s'" % arch)
 
