@@ -28,4 +28,4 @@ A simple usage example::
     'macosx-x86'
 
 Currently this has fairly wide OS coverage (Windows, Linux, Mac, Solaris,
-HP-UX, AIX).
+HP-UX, AIX, OpenBSD).

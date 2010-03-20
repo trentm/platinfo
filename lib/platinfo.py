@@ -75,7 +75,7 @@
 # - YAGNI: Having a "quick/terse" mode. Will always gather all possible
 #   information unless come up with a case to NOT do so.
 
-__version_info__ = (0, 14, 4)
+__version_info__ = (0, 14, 5)
 __version__ = '.'.join(map(str, __version_info__))
 
 import os
@@ -103,16 +103,20 @@ class InternalError(Error):
     def __str__(self):
         return Error.__str__(self) + """
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Please report this error by adding a bug here:                      *
-*     http://code.google.com/p/platinfo/issues/list                   *
-* or, by sending an email to <trentm@gmail.com>.                      *
-*                                                                     *
-* I'd like to keep improving `platinfo.py' to cover as many platforms *
-* as possible. Please be sure to include the error message above and  *
-* any addition information you think might be relevant. Thanks!       *
-* -- Trent                                                            *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* Please report this error by adding a bug here:
+*     http://code.google.com/p/platinfo/issues/list
+* or, by sending an email to <trentm@gmail.com>.
+*
+* I'd like to keep improving `platinfo.py' to cover as many platforms
+* as possible. Please be sure to include the error message above and
+* any addition information you think might be relevant. Thanks!
+* -- Trent
+*
+* platinfo version: %s
+* python version: %s
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""" % (
+    __version_info__, sys.version_info)
 
 class LinuxDistroVersionWarning(RuntimeWarning):
     pass
@@ -376,6 +380,8 @@ class PlatInfo(object):
         arch = uname[-1]
         if re.match(r"i\d86", arch):
             self.arch = "x86"
+        elif arch == "amd64":
+            self.arch = "x86_64"
         else:
             raise InternalError("unknown OpenBSD architecture: '%s'" % arch)
 
