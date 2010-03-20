@@ -129,7 +129,7 @@ warnings.simplefilter("once", LinuxDistroVersionWarning)
 class PlatInfo(object):
     """Platform information for the current machine."""
     _known_oses = set(
-        "win32 win64 hpux linux macosx aix solaris freebsd".split())
+        "win32 win64 hpux linux macosx aix solaris freebsd openbsd".split())
     _known_archs = set(
         "x86 powerpc ppc x64 x86_64 ia64 sparc sparc64 parisc".split())
 
