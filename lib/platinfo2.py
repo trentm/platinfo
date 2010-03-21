@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2004-2009 ActiveState Software Inc.
+# Copyright (c) 2004-20010 ActiveState Software Inc.
 # Written by: Trent Mick <trentm@gmail.com>
 # License: MIT License (http://www.opensource.org/licenses/mit-license.php)
 
