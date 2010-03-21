@@ -29,4 +29,6 @@ macosx-powerpc
 macosx10.3-powerpc
 macosx-x86
 aix-powerpc
+openbsd-x86
+openbsd-x86_64
 ...more aix, hpux, solaris?, what about 64-bit solaris?
