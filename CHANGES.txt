@@ -1,9 +1,10 @@
 # platinfo change log
 
 
-## platinfo 0.15.0 (not yet released)
+## platinfo 0.15.0
 
-- Python 3 support (thanks Sridhar Ratnakumar)
+- Python 3 support (thanks Sridhar Ratnakumar). Minimum Python version is now 2.4.
+  
 
 ## platinfo 0.14.5 (20-Mar-2010)
 
