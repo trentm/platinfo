@@ -106,9 +106,6 @@ class test(Task):
             if ver < (2,4):
                 # Don't support Python <= 2.3.
                 continue
-            elif ver >= (3,0):
-                # Don't (yet) support Python 3.
-                continue
             ver_str = "%s.%s" % ver
             print "-- test with Python %s (%s)" % (ver_str, python)
             assert ' ' not in python

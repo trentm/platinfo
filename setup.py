@@ -16,17 +16,14 @@ Development Status :: 5 - Production/Stable
 Intended Audience :: Developers
 License :: OSI Approved :: MIT License
 Programming Language :: Python
+Programming Language :: Python :: 2.4
+Programming Language :: Python :: 2.5
+Programming Language :: Python :: 2.6
+Programming Language :: Python :: 2.7
+Programming Language :: Python :: 3
 Operating System :: OS Independent
 Topic :: Software Development :: Libraries :: Python Modules
 """
-
-if sys.version_info < (2, 3):
-    # Distutils before Python 2.3 doesn't accept classifiers.
-    _setup = setup
-    def setup(**kwargs):
-        if kwargs.has_key("classifiers"):
-            del kwargs["classifiers"]
-        _setup(**kwargs)
 
 doclines = open(os.path.join(os.path.dirname(__file__), "README.txt")).read().split("\n")
 script = (sys.platform == "win32" and "lib\\platinfo.py" or "bin/platinfo")
