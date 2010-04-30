@@ -13,19 +13,19 @@ import pprint
 
 class APITestCase(unittest.TestCase):
     def test_version(self):
-        import platinfo
-        self.assert_(hasattr(platinfo, "__version__"))
-        self.assert_(hasattr(platinfo, "__version_info__"))
+        import platinfo2
+        self.assert_(hasattr(platinfo2, "__version__"))
+        self.assert_(hasattr(platinfo2, "__version_info__"))
 
     def test_class(self):
-        from platinfo import PlatInfo
+        from platinfo2 import PlatInfo
         pi = PlatInfo()
         self.assert_(hasattr(pi, "os"))
         self.assert_(hasattr(pi, "arch"))
         self.assertEqual(pi.name(), "%s-%s" % (pi.os, pi.arch))
 
     def test_ctor(self):
-        from platinfo import PlatInfo
+        from platinfo2 import PlatInfo
         pi = PlatInfo(os="win32", arch="x86")
         self.assertEqual(pi.name(), "win32-x86")
         
