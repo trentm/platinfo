@@ -131,8 +131,11 @@ class PlatInfo(object):
     #TODO: allow incoming 'win32' and 'win64'?
     _known_oses = set(
         "windows hpux linux macosx aix solaris freebsd openbsd".split())
+    # Note: `ia64_32` is the name being used for 32-bit builds on
+    # HP-UX IA64. This is a hacky name (mixing plat and build info), but
+    # it isn't the first one.
     _known_archs = set(
-        "x86 powerpc ppc x64 x86_64 ia64 sparc sparc64 parisc".split())
+        "x86 powerpc powerpc64 ppc x64 x86_64 ia64 ia64_32 sparc sparc64 parisc".split())
 
     @classmethod
     def from_name(cls, name):
@@ -467,12 +470,28 @@ class PlatInfo(object):
         uname = os.uname()
         self.os = "aix"
         self.os_ver = "%s.%s" % (uname[3], uname[2])
-
+                    
         # Determine processor type from 'uname -p' -- os.uname() does not
         # have this.
         o = os.popen('uname -p 2> /dev/null')
-        self.arch = o.read().strip()
+        arch = o.read().strip()
         o.close()
+
+        # 32-bit or 64-bit?
+        # Ideas from http://www.stata.com/support/faqs/win/64bit.html
+        o = os.popen('getconf -v KERNEL_BITMODE 2> /dev/null')
+        kbitmode = o.read().strip()
+        o.close()
+        if kbitmode:
+            sixtyfour = '64' in kbitmode
+        else:
+            o = os.popen('file /usr/lib/boot/unix* 2> /dev/null')
+            listing = o.read().strip()
+            o.close()
+            sixtyfour = '64-bit XCOFF executable' in listing
+
+        self.arch = arch + (sixtyfour and '64' or '')
+
 
     def _init_mac(self):
         # Determine processor type from 'uname -p' -- os.uname() does not
