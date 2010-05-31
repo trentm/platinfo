@@ -598,6 +598,7 @@ class PlatInfo(object):
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = p.communicate()
                 retval = p.wait()
+            stdout = stdout.decode('utf-8')
         except OSError:
             # Can happen if "lsb_release" did not exist, bug 82403.
             retval = 1   # an error
