@@ -1,5 +1,10 @@
 # platinfo change log
 
+## platinfo 2.0.0 (not yet released)
+
+- Change module name to "platinfo2" for sane co-existence with the "platinfo"
+  (version 0.x) module.
+
 
 ## platinfo 0.15.0 (not yet released)
 
