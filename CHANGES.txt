@@ -4,8 +4,9 @@
 ## platinfo 0.15.1 (not yet released)
 
 - Add `ia64_32` arch name for 32-bit builds on HP-UX/IA64 and `powerpc64` arch name for 64-bit builds on AIX/PowerPC.
+- Issue 8: python3: TypeError: can't use a string pattern on a bytes-like object
 
-
+#
 ## platinfo 0.15.0
 
 - Python 3 support (thanks Sridhar Ratnakumar). Minimum Python version is now 2.4.
