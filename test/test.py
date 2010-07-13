@@ -19,9 +19,12 @@ default_tags = ["-knownfailure"]
 def setup():
     # Ensure the *development* platinfo.py is tested.
     lib_dir = join(dirname(dirname(abspath(__file__))), "lib")
+    assert exists(lib_dir), 'does not exist: %s' % lib_dir
     sys.path.insert(0, lib_dir)
 
 if __name__ == "__main__":
-    retval = testlib.harness(setup_func=setup, default_tags=default_tags)
+    retval = testlib.harness(
+        testdir_from_ns={None: dirname(abspath(__file__))},
+        setup_func=setup, default_tags=default_tags)
     sys.exit(retval)
 
