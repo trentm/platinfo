@@ -7,7 +7,7 @@
 - Issue 8: python3: TypeError: can't use a string pattern on a bytes-like object
 
 
-## platinfo 0.15.0
+## platinfo 0.15.0 (29-Apr-2010)
 
 - Python 3 support (thanks Sridhar Ratnakumar). Minimum Python version is now 2.4.
   
