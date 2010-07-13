@@ -99,6 +99,11 @@ class googlecode_upload(Task):
         import webbrowser
         webbrowser.open_new(project_url)
 
+class tox(Task):
+    """Run tox"""
+    def make(self):
+        sh.run("tox")
+
 class test(Task):
     """Run all tests (except known failures)."""
     def make(self):
