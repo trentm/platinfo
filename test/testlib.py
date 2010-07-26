@@ -49,7 +49,7 @@
 # - See the optparse "TODO" below.
 # - Make the quiet option actually quiet.
 
-__version_info__ = (0, 6, 4)
+__version_info__ = (0, 6, 6)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -445,13 +445,13 @@ def list_tests(testdir_from_ns, tags):
     if log.isEnabledFor(logging.INFO): # long-form
         for i, t in enumerate(tests):
             if i:
-                print
+                print()
             testfile = t.testmod.__file__
             if testfile.endswith(".pyc"):
                 testfile = testfile[:-1]
             print("%s:" % t.shortname())
-            print("  from: %s#%s.%s" \
-                  % (testfile, t.testcase.__class__.__name__, t.testfn_name))
+            print("  from: %s#%s.%s" % (testfile,
+                t.testcase.__class__.__name__, t.testfn_name))
             wrapped = textwrap.fill(' '.join(t.tags()), WIDTH-10)
             print("  tags: %s" % _indent(wrapped, 8, True))
             if t.doc():
