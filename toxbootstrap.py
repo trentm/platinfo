@@ -119,6 +119,7 @@ def cmdline(argv=None):
         run([tox_script] + (argv or []), shell=False)
     except CalledProcessError as e:
         logging.error('tox exited with error code %d', e.returncode)
+        sys.exit(e.returncode)
 
 
 if __name__ == '__main__':
