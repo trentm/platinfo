@@ -115,7 +115,7 @@ def cmdline(argv=None):
 
     # Now run the locally-installed tox
     try:
-        run([tox_script] + argv, shell=False)
+        run([tox_script] + (argv or []), shell=False)
     except CalledProcessError as e:
         logging.error('tox exited with error code %d', e.returncode)
 
