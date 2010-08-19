@@ -114,6 +114,7 @@ def cmdline(argv=None):
     logging.info('tox is already installed at %s', tox_script)
 
     # Now run the locally-installed tox
+    os.chdir('..')
     try:
         run([tox_script] + (argv or []), shell=False)
     except CalledProcessError as e:
